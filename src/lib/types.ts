@@ -38,6 +38,25 @@ export type UkoappOverview = {
 }
 export type UkoappUser = { id: number; name: string; email: string; telephone: string; signed_in: boolean; joined: string | null; views: number; credits: number }
 export type UkoappPayment = { id: number; method: string; email: string; status: string; app: string; time: string | null }
+// UKOapp → Reactions (admin/back-end /ukoapp/reactions): party fees by the credits that paid them
+export type ReactionFees = {
+  fees: number; credits: number; by_source: { subscribed: number; ad: number; free: number }
+  host_credits: number; uko_credits: number; uko_ksh: number
+}
+export type ReactionsSummary = ReactionFees & { parties: number; open: number; paid_parties: number; members: number; host_ksh: number }
+export type ReactionRow = ReactionFees & {
+  id: number; code: string; title: string; content_type: string; eden: boolean; fee: number; listed: boolean
+  status: 'open' | 'ended'; started: string | null; ended: string | null; host: string; members: number; host_ksh: number
+}
+// UKOapp → Offline sales (admin/back-end /ukoapp/offline-sales): videos sold phone to phone, 70% seller / 30% UKO
+export type OfflineSalesSummary = {
+  sales: number; sellers: number; gross_ksh: number; seller_ksh: number; uko_ksh: number; uko_booked_ksh: number
+  host_ksh: number; paid_out_ksh: number; pending_ksh: number; failed_withdrawals: number; owed_ksh: number
+}
+export type OfflineSaleRow = {
+  id: number; title: string; eden: boolean; price: number; seller_ksh: number; uko_ksh: number; status: string
+  seller: string; buyer: string; created: string | null; paid: string | null
+}
 export type UkoappFeedback = { id: number; name: string; email: string; subject: string; message: string; time: string | null }
 
 // ---------------------------------------------------------------- Blockbusters + producers (admin/back-end routers/producers.py)

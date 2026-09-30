@@ -11,10 +11,11 @@ import { DashHeader, Panel, Table, Td } from '#/components/dashboard'
 import { Pager, useDebounced } from '#/components/console'
 import { BlockbustersPanel } from '#/components/blockbusters'
 import { ProducerPayoutsPanel, ProducersPanel } from '#/components/producers'
+import { OfflineSalesPanel, ReactionsPanel } from '#/components/reactions'
 
 export const Route = createFileRoute('/_console/ukoapp')({ component: UkoappConsole })
 
-type Tab = 'users' | 'payments' | 'feedback' | 'blockbusters' | 'producers' | 'payouts'
+type Tab = 'users' | 'payments' | 'feedback' | 'reactions' | 'offline' | 'blockbusters' | 'producers' | 'payouts'
 
 function UkoappConsole() {
   const [overview, setOverview] = useState<UkoappOverview | null>(null)
@@ -58,6 +59,8 @@ function UkoappConsole() {
               { key: 'users', label: 'Viewers', count: overview.users },
               { key: 'payments', label: 'Payments', count: paymentsTotal },
               { key: 'feedback', label: 'Feedback', count: overview.feedback },
+              { key: 'reactions', label: 'Reactions' },
+              { key: 'offline', label: 'Offline sales' },
               { key: 'blockbusters', label: 'Blockbusters 5k+' },
               { key: 'producers', label: 'Producers', count: queue ? queue.claims + queue.documents || undefined : undefined },
               { key: 'payouts', label: 'Producer payment requests', count: queue?.payouts || undefined },
@@ -66,6 +69,8 @@ function UkoappConsole() {
           {tab === 'users' && <UsersPanel />}
           {tab === 'payments' && <PaymentsPanel />}
           {tab === 'feedback' && <FeedbackPanel />}
+          {tab === 'reactions' && <ReactionsPanel />}
+          {tab === 'offline' && <OfflineSalesPanel />}
           {tab === 'blockbusters' && <BlockbustersPanel />}
           {tab === 'producers' && <ProducersPanel />}
           {tab === 'payouts' && <ProducerPayoutsPanel />}
